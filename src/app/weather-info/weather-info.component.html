@@ -1,0 +1,35 @@
+<h2>Weather Information</h2>
+<div class="row">
+    <div class="col-sm-6">
+        <form (submit)="showDetails()">
+            <label for="city">City:</label>
+            <input type="text" name="city" id="city" class="form-control" [(ngModel)]="city" />
+            <button type="submit" class="btn btn-primary mt-2">Show Details</button>
+        </form>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-6">
+        @if(error){
+            <p style="color: red;">{{error}}</p>
+        }
+        @if(weatherData){
+            <h2>{{weatherData.name}}</h2>
+            <p>Temperature: {{ convertTemp(weatherData.main.temp) }}&deg;{{unit}}</p>
+            <p>Condition: {{weatherData.weather[0].description}}</p>
+            <p>Humidity: {{weatherData.main.humidity}}</p>
+            <p>Wind speed: {{weatherData.wind.speed}}</p>
+            <img src="http://openweathermap.org/img/wn/{{weatherData.weather[0].icon}}.png" />
+        }
+    </div>
+</div>
+@if(weatherData){
+    <label>
+        <input type="radio" name="unit" value="C" [(ngModel)]="unit" />
+        Celsius
+    </label>
+    <label>
+        <input type="radio" name="unit" value="F" [(ngModel)]="unit" />
+        Farenheit
+    </label>
+}
